@@ -1,0 +1,283 @@
+@startuml
+
+title __SRC's Class Diagram__\n
+
+  namespace src {
+    class src.BreakableWall {
+        {static} - breakable_wall_img : BufferedImage
+        - dead : boolean
+        - health : int
+        + collision()
+        + drawImage()
+        + update()
+        ~ BreakableWall()
+        ~ getHealth()
+        ~ isDead()
+        ~ setDead()
+        {static} ~ set_breakable_wall_img()
+        - addHealth()
+        - removeHealth()
+    }
+  }
+  
+
+  namespace src {
+    class src.Bullet {
+        ~ collided : boolean
+        {static} - big_explosion_img : BufferedImage
+        {static} - bullet_img : BufferedImage
+        - bullet_owner : String
+        {static} - explosion_img : BufferedImage
+        - isInActive : boolean
+        - iterations_since_collided : int
+        - small_explosion : boolean
+        + collision()
+        + drawImage()
+        + update()
+        ~ Bullet()
+        ~ getIsInactive()
+        ~ getOwner()
+        ~ getSmall_explosion()
+        {static} ~ setBig_explosion_img()
+        {static} ~ setBufferedImage()
+        {static} ~ setExplosionImage()
+        ~ setIsInactive()
+        ~ setOwner()
+        ~ setSmall_explosion()
+        - checkBorder()
+    }
+  }
+  
+
+  namespace src {
+    class src.CollisionHandler {
+        ~ HandleCollisions()
+    }
+  }
+  
+
+  namespace src {
+    abstract class src.GameObject {
+        ~ angle : int
+        ~ height : int
+        ~ my_rectangle : Rectangle
+        ~ vx : int
+        ~ vy : int
+        ~ width : int
+        ~ x : int
+        ~ y : int
+        {abstract} + collision()
+        {abstract} + drawImage()
+        {abstract} + update()
+        ~ getAngle()
+        ~ getVx()
+        ~ getVy()
+        ~ getX()
+        ~ getY()
+        ~ setAngle()
+        ~ setVx()
+        ~ setVy()
+        ~ setX()
+        ~ setY()
+    }
+  }
+  
+
+  namespace src {
+    class src.GameWorld {
+        + Player1_num_lives : int
+        + Player2_num_lives : int
+        {static} ~ WORLD_HEIGHT : int
+        {static} ~ WORLD_WIDTH : int
+        {static} ~ state : Game_State
+        {static} - SCREEN_HEIGHT : int
+        {static} - SCREEN_WIDTH : int
+        - Tank1_spawn_angle : int
+        - Tank1_spawn_x : int
+        - Tank1_spawn_y : int
+        - Tank2_spawn_angle : int
+        - Tank2_spawn_x : int
+        - Tank2_spawn_y : int
+        - buffer : Graphics2D
+        - game_objects : ArrayList<GameObject>
+        {static} - help_img : BufferedImage
+        - jf : JFrame
+        {static} - m : Menu
+        {static} - menu_img : BufferedImage
+        {static} - player1_win_img : BufferedImage
+        - player1_won : boolean
+        {static} - player2_win_img : BufferedImage
+        - player2_won : boolean
+        {static} - tank_img : BufferedImage
+        - world : BufferedImage
+        {static} + main()
+        + paintComponent()
+        + setGame_objects()
+        ~ addGame_object()
+        - init()
+    }
+  }
+  
+
+  namespace src {
+    enum Game_State {
+      exit
+      game
+      help
+      menu
+    }
+  }
+  
+
+  namespace src {
+    class src.Menu {
+        + drawImage()
+    }
+  }
+  
+
+  namespace src {
+    class src.MouseReader {
+        + mouseClicked()
+        + mouseEntered()
+        + mouseExited()
+        + mousePressed()
+        + mouseReleased()
+    }
+  }
+  
+
+  namespace src {
+    class src.PowerUp {
+        ~ isActive : boolean
+        ~ isHealthBoost : boolean
+        ~ isSpeedBoost : boolean
+        ~ isaddLife : boolean
+        {static} - health_img : BufferedImage
+        {static} - healthrefill_img : BufferedImage
+        {static} - speed_img : BufferedImage
+        + PowerUp()
+        + collision()
+        + drawImage()
+        {static} + setSpeed_img()
+        + update()
+        {static} ~ setHealth_img()
+        {static} ~ setHealthrefill_img()
+    }
+  }
+  
+
+  namespace src {
+    class src.Tank {
+        - DownPressed : boolean
+        - LastFired : long
+        - LeftPressed : boolean
+        - R : int
+        - ROTATIONSPEED : int
+        - RightPressed : boolean
+        - ShootPressed : boolean
+        - UpPressed : boolean
+        - angle : int
+        - dont_move : boolean
+        - health : int
+        - img : BufferedImage
+        - speedBoost : long
+        - speed_isboosted : boolean
+        - tag : String
+        - vx : int
+        - vy : int
+        + collision()
+        + drawImage()
+        + setAngle()
+        + update()
+        ~ ShootPressed()
+        ~ Shoot_UN_Pressed()
+        ~ Tank()
+        ~ addHealth()
+        ~ addlife()
+        ~ getHealth()
+        ~ getOffsetBounds()
+        ~ getSpeedBoost()
+        ~ getTag()
+        ~ getdont_move()
+        ~ setGW()
+        ~ setHealth()
+        ~ setSpeedBoost()
+        ~ setSpeed_boosted()
+        ~ setTag()
+        ~ setdont_move()
+        ~ toggleDownPressed()
+        ~ toggleLeftPressed()
+        ~ toggleRightPressed()
+        ~ toggleUpPressed()
+        ~ unToggleDownPressed()
+        ~ unToggleLeftPressed()
+        ~ unToggleRightPressed()
+        ~ unToggleUpPressed()
+        - SpawnBullet()
+        - checkBorder()
+        - isSpeed_boosted()
+        - moveBackwards()
+        - moveForwards()
+        - removeHealth()
+        - rotateLeft()
+        - rotateRight()
+    }
+  }
+  
+
+  namespace src {
+    class src.TankControl {
+        - down : int
+        - left : int
+        - right : int
+        - shoot : int
+        - up : int
+        + TankControl()
+        + keyPressed()
+        + keyReleased()
+        + keyTyped()
+    }
+  }
+  
+
+  namespace src {
+    class src.Wall {
+        {static} - background_img : BufferedImage
+        - is_background : boolean
+        {static} - unbreakable_wall_img : BufferedImage
+        + Wall()
+        + Wall()
+        + collision()
+        + drawImage()
+        {static} + setBackground_img()
+        {static} + set_unbreakable_wall_img()
+        + update()
+    }
+  }
+  
+
+  src.BreakableWall -up-|> src.Wall
+  src.Bullet -up-|> src.GameObject
+  src.GameWorld -up-|> javax.swing.JPanel
+  src.GameWorld o-- src.CollisionHandler : CH
+  src.GameWorld o-- src.Tank : t1
+  src.GameWorld o-- src.Tank : t2
+  src.GameWorld +-down- src.GameWorld.Game_State
+  src.MouseReader .up.|> java.awt.event.MouseListener
+  src.PowerUp -up-|> src.GameObject
+  src.Tank -up-|> src.GameObject
+  src.Tank o-- src.GameWorld : gw
+  src.TankControl .up.|> java.awt.event.KeyListener
+  src.TankControl o-- src.Tank : t1
+  src.Wall -up-|> src.GameObject
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
